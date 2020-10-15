@@ -38,7 +38,7 @@ disqusShortname = ""
   # Navigation Section
   [params.navigation]
     title = "Aris Georgakopoulos"
-    subtitle = "MFA 2021"
+    subtitle = "MFA 2021 @ LBS"
     menu = "Menu"
     # Optional logo as brand stored in img/
     # logo = "logo.png"

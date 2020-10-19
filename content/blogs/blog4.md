@@ -5,7 +5,6 @@ categories:
 date: "2017-10-31T22:42:51-05:00"
 description: I am currently reading for my Masters in Financial Analysis.
 draft: false
-image: about.jpg
 keywords: ""
 slug: about
 title: About Me

@@ -3,10 +3,15 @@ categories:
 - ""
 - ""
 date: "2017-10-31T22:42:51-05:00"
-description: Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.
+description: I am currently reading for my Masters in Financial Analysis.
 draft: false
-image: pic07.jpg
+image: about.jpg
 keywords: ""
-slug: aliquam
-title: Aliquam
+slug: about
+title: About Me
 ---
+I am currently reading for my Masters in Financial Analysis at London Business School. Prior to that I completed my undergraduate degree in Accounting & Finance at Athens University of Economics and Business.
+
+I am passionate about the markets and find very exiting the analysis and integration of world economic and geopolitical events in potential trading ideas and algorithms.
+
+In my free time I like to take salsa dancing lessons and go to salsa parties. The picture above was taken at one of them! I have also appeared in a professional team. ¡Aguaaaa!

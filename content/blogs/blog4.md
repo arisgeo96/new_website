@@ -2,8 +2,8 @@
 categories:
 - ""
 - ""
-date: "2017-10-31T22:42:51-05:00"
-description: I am currently reading for my Masters in Financial Analysis.
+date: "2020-10-20"
+description: Get to know me
 draft: false
 keywords: ""
 slug: about

@@ -6,11 +6,11 @@
     <description>Recent content on Portfolio website for Aris Georgakopoulos</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Oct 2017 22:42:51 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
       <link>/blogs/about/</link>
-      <pubDate>Tue, 31 Oct 2017 22:42:51 -0500</pubDate>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/blogs/about/</guid>
       <description>I am currently reading for my Masters in Financial Analysis at London Business School. Prior to that I completed my undergraduate degree in Accounting &amp;amp; Finance at Athens University of Economics and Business.
@@ -19,9 +19,18 @@ In my free time I like to take salsa dancing lessons and go to salsa parties.</d
     </item>
     
     <item>
+      <title>Matlab</title>
+      <link>/blogs/matlab/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blogs/matlab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Resume</title>
       <link>/blogs/resume/</link>
-      <pubDate>Tue, 31 Oct 2017 22:26:13 -0500</pubDate>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/blogs/resume/</guid>
       <description>EDUCATION 2020 - 2021 London Business School Masters in Financial Analysis
@@ -29,15 +38,6 @@ Relevant coursework: Fixed Income Securities, Financial Engineering &amp;amp; Ri
 2014 - 2019 Athens University of Economics and Business BSc Accounting &amp;amp; Finance
 Relevant coursework: Market Micro-structure, Computational Finance, Risk Management, Econometrics, Fixed Income, Derivatives, Portfolio Analysis
 Academic projects: Portfolio Analysis and CVaR Optimization, Variation of Glosten - Milgrom model, Constant Proportion Portfolio Insurance</description>
-    </item>
-    
-    <item>
-      <title>Magna</title>
-      <link>/blogs/magna/</link>
-      <pubDate>Tue, 31 Oct 2017 22:26:09 -0500</pubDate>
-      
-      <guid>/blogs/magna/</guid>
-      <description></description>
     </item>
     
     <item>

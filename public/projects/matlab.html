@@ -1,0 +1,270 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Dual-listed stocks arbitrage</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-20"><meta name="DC.source" content="InvestmentFundamentals.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Dual-listed stocks arbitrage</h1><!--introduction--><p><b>data_filtered.trades</b> counts the number of trades made on that day.</p><div><ul><li>0 = no trade</li><li>1 = either open or close position</li><li>2 = exit and re-enter with opposite positions</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Data</a></li><li><a href="#2">Parameters</a></li><li><a href="#3">Model</a></li></ul></div><h2 id="1">Data</h2><pre class="codeinput">clear <span class="string">all</span>
+data = readtable(<span class="string">'alldata.csv'</span>);
+companies = unique(data.company_name);
+
+<span class="comment">%   Absolute spread</span>
+data.spread_abs = data.close_2 - data.close_1;
+<span class="comment">%   Percentage spread</span>
+data.spread_per(data.close_2 &gt;= data.close_1) = <span class="keyword">...</span>
+    data.close_2(data.close_2 &gt;= data.close_1)./data.close_1(data.close_2 &gt;= data.close_1) - 1;
+<span class="comment">%   Minus sign denotes that stock 1 has a higher price</span>
+data.spread_per(data.close_2 &lt; data.close_1) = <span class="keyword">...</span>
+    -(data.close_1(data.close_2 &lt; data.close_1)./data.close_2(data.close_2 &lt; data.close_1) - 1);
+<span class="comment">%   Day-to-day spread variation</span>
+data.spread_d2d(1,1) = 0;
+data.spread_d2d(2:end,1) = data.spread_per(2:end,1) - data.spread_per(1:end-1,1);
+</pre><h2 id="2">Parameters</h2><pre class="codeinput">open_threshold = 0.075;
+close_threshold = 0.005;
+stop_loss = 0.30;
+no_trading_days = 3;
+</pre><h2 id="3">Model</h2><pre class="codeinput">total_p_l = 0;
+<span class="keyword">for</span> j = 1:length(companies)
+    initial_abs = 0;
+    initial_per = 0;
+    no_trade_remaining = 0;
+    company = convertCharsToStrings(cell2mat(companies(j,1)));
+    <span class="comment">%   Filter data by company name</span>
+    data_filtered = data(data{:,2} == company, :);
+    <span class="comment">%   Sort filtered data in ascending order by date</span>
+    data_filtered = sortrows(data_filtered, <span class="string">'date'</span>, <span class="string">'ascend'</span>);
+    data_filtered.trades(:,1) = 0;
+    data_filtered.p_l(:,1) = 0;
+    <span class="keyword">for</span> i = 1:height(data_filtered)
+        <span class="comment">%   Check for no trade period</span>
+        <span class="keyword">if</span> no_trade_remaining &gt; 0
+            no_trade_remaining = no_trade_remaining - 1;
+            <span class="keyword">continue</span>
+        <span class="keyword">end</span>
+        <span class="comment">%   Check if spread is more than the threshold and open a position</span>
+        <span class="keyword">if</span> initial_abs == 0 &amp;&amp; abs(data_filtered.spread_per(i,1)) &gt; open_threshold
+            initial_abs = data_filtered.spread_abs(i,1);
+            initial_per = data_filtered.spread_per(i,1);
+            data_filtered.trades(i,1) = 1;
+        <span class="keyword">elseif</span> initial_per &lt; 0
+            <span class="comment">%   Stop loss</span>
+            <span class="keyword">if</span> initial_per - data_filtered.spread_per(i,1) &gt; stop_loss
+                data_filtered.p_l(i,1) = - initial_abs + data_filtered.spread_abs(i,1);    <span class="comment">%   P &amp; L</span>
+                initial_abs = 0;
+                initial_per = 0;
+                data_filtered.trades(i,1) = 1;
+                no_trade_remaining = no_trading_days;
+                <span class="keyword">continue</span>
+            <span class="keyword">end</span>
+            <span class="comment">%   Close LONG stock 2 and SHORT stock 1 position</span>
+            <span class="keyword">if</span> data_filtered.spread_per(i,1) - initial_per &gt;= close_threshold
+                data_filtered.p_l(i,1) = abs(initial_abs) + data_filtered.spread_abs(i,1); <span class="comment">%   P &amp; L</span>
+                [initial_abs, initial_per, data_filtered] = Positions(data_filtered,i,close_threshold);
+            <span class="keyword">end</span>
+        <span class="keyword">elseif</span> initial_per &gt; 0
+            <span class="comment">%   Stop loss</span>
+            <span class="keyword">if</span> data_filtered.spread_per(i,1) - initial_per &gt; stop_loss
+                data_filtered.p_l(i,1) = initial_abs - data_filtered.spread_abs(i,1);  <span class="comment">%   P &amp; L</span>
+                initial_abs = 0;
+                initial_per = 0;
+                data_filtered.trades(i,1) = 1;
+                no_trade_remaining = no_trading_days;
+                <span class="keyword">continue</span>
+            <span class="keyword">end</span>
+            <span class="comment">%   Close LONG stock 1 and SHORT stock 2 position</span>
+            <span class="keyword">if</span> data_filtered.spread_per(i,1) - initial_per &lt;= -close_threshold
+                data_filtered.p_l(i,1) = initial_abs + abs(data_filtered.spread_abs(i,1));  <span class="comment">%   P &amp; L</span>
+                [initial_abs, initial_per, data_filtered] = Positions(data_filtered,i,close_threshold);
+            <span class="keyword">end</span>
+        <span class="keyword">else</span>
+            data_filtered.trades(i,1) = 0;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    <span class="comment">%   Close any position that is open on 31/12/2019</span>
+    <span class="keyword">if</span> i == height(data_filtered) &amp;&amp; mod(sum(data_filtered.trades(1:end-1,1)),2) == 1
+        <span class="keyword">if</span> initial_per &gt; 0
+            data_filtered.p_l(i,1) = initial_abs - data_filtered.spread_abs(i,1);  <span class="comment">%   P &amp; L</span>
+        <span class="keyword">else</span>
+            data_filtered.p_l(i,1) = - initial_abs + data_filtered.spread_abs(i,1);  <span class="comment">%   P &amp; L</span>
+        <span class="keyword">end</span>
+        data_filtered.trades(i,1) = 1;
+    <span class="keyword">end</span>
+    <span class="comment">%   Total trades</span>
+    companies{j,2} = sum(data_filtered.trades(:,1));
+    <span class="comment">%   P &amp; L</span>
+    companies{j,3} = sum(data_filtered.p_l(:,1));
+    <span class="comment">%   Total P &amp; L</span>
+    total_p_l = total_p_l + sum(data_filtered.p_l(:,1));
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%  Dual-listed stocks arbitrage
+%
+% *data_filtered.trades* counts the number of trades made on that day.
+%
+% * 0 = no trade
+% * 1 = either open or close position
+% * 2 = exit and re-enter with opposite positions 
+%% Data
+clear all
+data = readtable('alldata.csv');
+companies = unique(data.company_name);
+
+%   Absolute spread
+data.spread_abs = data.close_2 - data.close_1;
+%   Percentage spread
+data.spread_per(data.close_2 >= data.close_1) = ...
+    data.close_2(data.close_2 >= data.close_1)./data.close_1(data.close_2 >= data.close_1) - 1;
+%   Minus sign denotes that stock 1 has a higher price
+data.spread_per(data.close_2 < data.close_1) = ...
+    -(data.close_1(data.close_2 < data.close_1)./data.close_2(data.close_2 < data.close_1) - 1);
+%   Day-to-day spread variation
+data.spread_d2d(1,1) = 0;
+data.spread_d2d(2:end,1) = data.spread_per(2:end,1) - data.spread_per(1:end-1,1);
+
+%% Parameters
+open_threshold = 0.075;
+close_threshold = 0.005;
+stop_loss = 0.30;
+no_trading_days = 3;
+
+%% Model
+total_p_l = 0;
+for j = 1:length(companies)
+    initial_abs = 0;
+    initial_per = 0;
+    no_trade_remaining = 0;
+    company = convertCharsToStrings(cell2mat(companies(j,1)));
+    %   Filter data by company name
+    data_filtered = data(data{:,2} == company, :);
+    %   Sort filtered data in ascending order by date
+    data_filtered = sortrows(data_filtered, 'date', 'ascend');
+    data_filtered.trades(:,1) = 0;
+    data_filtered.p_l(:,1) = 0;
+    for i = 1:height(data_filtered)
+        %   Check for no trade period
+        if no_trade_remaining > 0
+            no_trade_remaining = no_trade_remaining - 1;
+            continue
+        end
+        %   Check if spread is more than the threshold and open a position
+        if initial_abs == 0 && abs(data_filtered.spread_per(i,1)) > open_threshold
+            initial_abs = data_filtered.spread_abs(i,1);
+            initial_per = data_filtered.spread_per(i,1);
+            data_filtered.trades(i,1) = 1;
+        elseif initial_per < 0
+            %   Stop loss
+            if initial_per - data_filtered.spread_per(i,1) > stop_loss
+                data_filtered.p_l(i,1) = - initial_abs + data_filtered.spread_abs(i,1);    %   P & L
+                initial_abs = 0;
+                initial_per = 0;
+                data_filtered.trades(i,1) = 1;
+                no_trade_remaining = no_trading_days;
+                continue
+            end
+            %   Close LONG stock 2 and SHORT stock 1 position
+            if data_filtered.spread_per(i,1) - initial_per >= close_threshold 
+                data_filtered.p_l(i,1) = abs(initial_abs) + data_filtered.spread_abs(i,1); %   P & L
+                [initial_abs, initial_per, data_filtered] = Positions(data_filtered,i,close_threshold);
+            end
+        elseif initial_per > 0
+            %   Stop loss
+            if data_filtered.spread_per(i,1) - initial_per > stop_loss
+                data_filtered.p_l(i,1) = initial_abs - data_filtered.spread_abs(i,1);  %   P & L
+                initial_abs = 0;
+                initial_per = 0;
+                data_filtered.trades(i,1) = 1;
+                no_trade_remaining = no_trading_days;
+                continue
+            end
+            %   Close LONG stock 1 and SHORT stock 2 position
+            if data_filtered.spread_per(i,1) - initial_per <= -close_threshold 
+                data_filtered.p_l(i,1) = initial_abs + abs(data_filtered.spread_abs(i,1));  %   P & L
+                [initial_abs, initial_per, data_filtered] = Positions(data_filtered,i,close_threshold);
+            end
+        else
+            data_filtered.trades(i,1) = 0;
+        end
+    end
+    %   Close any position that is open on 31/12/2019
+    if i == height(data_filtered) && mod(sum(data_filtered.trades(1:end-1,1)),2) == 1
+        if initial_per > 0
+            data_filtered.p_l(i,1) = initial_abs - data_filtered.spread_abs(i,1);  %   P & L
+        else
+            data_filtered.p_l(i,1) = - initial_abs + data_filtered.spread_abs(i,1);  %   P & L
+        end
+        data_filtered.trades(i,1) = 1;
+    end
+    %   Total trades
+    companies{j,2} = sum(data_filtered.trades(:,1));
+    %   P & L
+    companies{j,3} = sum(data_filtered.p_l(:,1));
+    %   Total P & L
+    total_p_l = total_p_l + sum(data_filtered.p_l(:,1));
+end
+
+##### SOURCE END #####
+--></body></html>

@@ -102,18 +102,18 @@ disqusShortname = ""
 #      subtitle = "..."
       image = "plsfix.jpg"
       url = "blogs/resume"
+      
+    [[params.tiles.showcase]]
+      title = "R"
+      subtitle = "Hong Kong AirBnb Data Analysis"
+      image = "airbnb.png"
+      url = "projects/hong_kong"
 
     [[params.tiles.showcase]]
       title = "MATLAB"
       subtitle = "Dual-listed stocks arbitrage"
       image = "matlab_logo.png"
       url = "projects/matlab.html"
-
-    [[params.tiles.showcase]]
-      title = "R"
-      subtitle = "Hong Kong AirBnb Data Analysis"
-      image = "airbnb.png"
-      url = "projects/hong_kong"
 
 #    [[params.tiles.showcase]]
 #      title = "Consequat"

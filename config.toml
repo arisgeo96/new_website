@@ -100,7 +100,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Resume"
 #      subtitle = "..."
-      image = "resume.jpg"
+      image = "plsfix.jpg"
       url = "blogs/resume"
 
     [[params.tiles.showcase]]
@@ -110,10 +110,10 @@ disqusShortname = ""
       url = "projects/matlab.html"
 
     [[params.tiles.showcase]]
-      title = "Under Construction"
-      subtitle = "..."
-      image = "pic04.jpg"
-      url = "blogs/ipsum"
+      title = "R"
+      subtitle = "Hong Kong AirBnb Data Analysis"
+      image = "airbnb.png"
+      url = "projects/hong_kong"
 
 #    [[params.tiles.showcase]]
 #      title = "Consequat"

@@ -19,6 +19,24 @@ In my free time I like to take salsa dancing lessons and go to salsa parties.</d
     </item>
     
     <item>
+      <title>Hong Kong AirBnb Data Analysis</title>
+      <link>/projects/hong_kong/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/hong_kong/</guid>
+      <description>This report contains a detailed analysis of the AirBnb market across Hong Kong. We begin by conducting Exploratory Data Analysis and visualize some key findings from our dataset. Next, we visualize the distribution of AirBnB rentals across the city using Mapping. Subsequently, we try to come up with a Regression Model that predicts the average cost for a four night stay for 2 people in Hong Kong.</description>
+    </item>
+    
+    <item>
+      <title>Ipsum</title>
+      <link>/blogs/ipsum/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blogs/ipsum/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Matlab</title>
       <link>/blogs/matlab/</link>
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
@@ -38,15 +56,6 @@ Relevant coursework: Fixed Income Securities, Financial Engineering &amp;amp; Ri
 2014 - 2019 Athens University of Economics and Business BSc Accounting &amp;amp; Finance
 Relevant coursework: Market Micro-structure, Computational Finance, Risk Management, Econometrics, Fixed Income, Derivatives, Portfolio Analysis
 Academic projects: Portfolio Analysis and CVaR Optimization, Variation of Glosten - Milgrom model, Constant Proportion Portfolio Insurance</description>
-    </item>
-    
-    <item>
-      <title>Ipsum</title>
-      <link>/blogs/ipsum/</link>
-      <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
-      
-      <guid>/blogs/ipsum/</guid>
-      <description>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</description>
     </item>
     
     <item>

@@ -3,6 +3,7 @@ title: "Hong Kong AirBnb Data Analysis"
 author: "Group Project @ LBS"
 date: "2020-10-20"
 slug: hong_kong
+image: airbnb.png
 output:
   html_document:
     theme: flatly

@@ -33,7 +33,7 @@ disqusShortname = ""
   # 404 error customization
   [params.error404]
     heading = "Page couldn't be found"
-    text = "Please visit [this page](/)"
+#    text = "Please visit [this page](/)"
 
   # Navigation Section
   [params.navigation]
@@ -43,17 +43,17 @@ disqusShortname = ""
     # Optional logo as brand stored in img/
     # logo = "logo.png"
 
-    [[params.navigation.links]]
-      name = "Home"
-      url = "#"
+#    [[params.navigation.links]]
+#      name = "Home"
+#      url = "#"
 
     [[params.navigation.links]]
       name = "About"
       url = "blogs"
 
-#    [[params.navigation.links]]
-#      name = "Generic Blog"
-#      url = "blogs/ipsum"
+    [[params.navigation.links]]
+      name = "Projects in R"
+      url = "projects"
 
 #    [[params.navigation.links]]
 #      name = "Elements"
@@ -67,9 +67,9 @@ disqusShortname = ""
     #    url = "UrlOfLink"
 
     # Button Style 1
-#    [[params.navigation.button1]]
-#      name = "Get Started"
-#      url = "blogs"
+    [[params.navigation.button1]]
+      name = "Home"
+      url = "#"
 
     # Button Style 2
 #    [[params.navigation.button2]]

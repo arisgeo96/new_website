@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Dual-listed stocks arbitrage</h1><!--introduction--><p><b>data_filtered.trades</b> counts the number of trades made on that day.</p><div><ul><li>0 = no trade</li><li>1 = either open or close position</li><li>2 = exit and re-enter with opposite positions</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Data</a></li><li><a href="#2">Parameters</a></li><li><a href="#3">Model</a></li></ul></div><h2 id="1">Data</h2><pre class="codeinput">clear <span class="string">all</span>
+  </style></head><body><div class="content"><h1>Dual-listed stocks arbitrage</h1><!--introduction--><p>This model exploits the difference in prices between dual-listed stocks. A position gets opened when the spread between the two prices exceeds 7.5%. Then, both long and short positions are monitored daily and a stop-loss is placed at 30% above the initial spread. In case a stop-loss is hit, a 3-day cooling off period follows, during which no trades are made, even if the criteria are met. This period has been included in the model to reflect on real-life reevaluation of the model in case something like this would happen. A position is exited when the spread has decreased by 0.5%. In case the spread has inverted then the opposite position gets opened immediately. Any open positions on the last day of the dataset <i>(31/12/2019)</i> get liquidated.</p><p><b>data_filtered.trades</b> is the count of trades made on that day</p><div><ul><li>0 = no trade</li><li>1 = open <b>or</b> close position</li><li>2 = close <b>and</b> open position <i>(exit and re-enter with opposite positions)</i></li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Data</a></li><li><a href="#2">Parameters</a></li><li><a href="#3">Model</a></li></ul></div><h2 id="1">Data</h2><pre class="codeinput">clear <span class="string">all</span>
 data = readtable(<span class="string">'alldata.csv'</span>);
 companies = unique(data.company_name);
 
@@ -162,12 +162,17 @@ no_trading_days = 3;
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %%  Dual-listed stocks arbitrage
+% This model exploits the difference in prices between dual-listed stocks. A position gets opened when the spread between the two prices exceeds 7.5%. 
+% Then, both long and short positions are monitored daily and a stop-loss is placed at 30% above the initial spread. In case a stop-loss is hit, a 3-day 
+% cooling off period follows, during which no trades are made, even if the criteria are met. This period has been included in the model to reflect on
+% real-life reevaluation of the model in case something like this would happen. A position is exited when the spread has decreased by 0.5%. In case the 
+% spread has inverted then the opposite position gets opened immediately. Any open positions on the last day of the dataset _(31/12/2019)_ get liquidated.
 %
-% *data_filtered.trades* counts the number of trades made on that day.
+% *data_filtered.trades* is the count of trades made on that day
 %
 % * 0 = no trade
-% * 1 = either open or close position
-% * 2 = exit and re-enter with opposite positions 
+% * 1 = open *or* close position
+% * 2 = close *and* open position _(exit and re-enter with opposite positions)_
 %% Data
 clear all
 data = readtable('alldata.csv');

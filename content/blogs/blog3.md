@@ -4,6 +4,7 @@ categories:
 - ""
 date: "2020-10-20"
 draft: false
+image: resume.jpg
 keywords: ""
 slug: resume
 title: Resume

@@ -48,8 +48,8 @@ disqusShortname = ""
       url = "#"
 
     [[params.navigation.links]]
-      name = "Projects"
-      url = "projects"
+      name = "About"
+      url = "blogs"
 
 #    [[params.navigation.links]]
 #      name = "Generic Blog"
@@ -67,9 +67,9 @@ disqusShortname = ""
     #    url = "UrlOfLink"
 
     # Button Style 1
-    [[params.navigation.button1]]
-      name = "Get Started"
-      url = "blogs"
+#    [[params.navigation.button1]]
+#      name = "Get Started"
+#      url = "blogs"
 
     # Button Style 2
 #    [[params.navigation.button2]]
@@ -105,8 +105,8 @@ disqusShortname = ""
 
     [[params.tiles.showcase]]
       title = "MATLAB"
-      subtitle = "..."
-      image = "pic03.jpg"
+      subtitle = "Dual-listed stocks arbitrage"
+      image = "matlab_logo.png"
       url = "projects/matlab.html"
 
     [[params.tiles.showcase]]
